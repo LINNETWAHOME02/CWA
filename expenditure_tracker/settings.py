@@ -26,9 +26,6 @@ SECRET_KEY = 'django-insecure-m$_o&$t%=xx38ve!g7ou6zw7163zu0+4&e6$rbv1(26bdc=&q3
 DEBUG = False
 ALLOWED_HOSTS = ['wahome.pythonanywhere.com', '127.0.0.1']
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -118,12 +115,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collectstatic
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    os.path.join(BASE_DIR, 'static'),  # Actual static files directory
 ]
-
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
