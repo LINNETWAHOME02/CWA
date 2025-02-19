@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+
+    <div class="flex gap-2 justify-between">
+        <a href="/upload" class="bg-green-500 text-white px-8 py-2 rounded">Upload Excel</a>
+        <form action="{% url 'delete_all' %}" method="post" onsubmit="return confirm('This will delete ALL members including in the database. Continue?')">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 text-white px-8 py-2 rounded">Delete All Members</button>
+        </form>
+    </div>
+
+    <table class="min-w-full divide-y divide-gray-200">
+
+
+        <thead>
+            <tr>
+                <th class="px-6 py-3 bg-gray-50 text-left">Name</th>
+                <th class="px-6 py-3 bg-gray-50 text-left">Total Contributed</th>
+                <th class="px-6 py-3 bg-gray-50 text-left">Deficits</th>
+                <th class="px-6 py-3 bg-gray-50 text-left">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4">{{ member.name }}</td>
+                <td class="px-6 py-4">KES{{ member.total_contributed|floatformat:2 }}</td>
+                <td class="px-6 py-4 text-red-500">
+                    {% if member.deficits %}
+                        KES{{ member.total_deficit|floatformat:2 }}
+                    {% else %}
+                        None
+                    {% endif %}
+                </td>
+                <td class="px-8 py-5 flex justify-between">
+                    <a href="{% url 'generate_report' member.id %}" class="bg-blue-500 text-white px-8 py-2 rounded">Generate Report</a>
+                    <a href="{% url 'edit_contributions' member.id %}" class="bg-gray-500 text-white px-8 py-2 rounded mx-2">Edit</a>
+
+                    <form action="{% url 'delete_member' member.id %}" method="post" onsubmit="return confirm('Delete {{ member.name }}?')">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-500 text-white px-8 py-2 rounded">Delete</button>
+                    </form>
+                </td>
+
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+{% endblock %}
