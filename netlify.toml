@@ -1,0 +1,7 @@
+[build]
+  command = "python manage.py collectstatic && python manage.py runserver"
+  publish = "staticfiles"
+  functions = "functions"
+
+[build.environment]
+  PYTHON_VERSION = "3.9"
