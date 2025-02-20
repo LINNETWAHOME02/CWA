@@ -27,8 +27,9 @@ SECRET_KEY = 'django-insecure-m$_o&$t%=xx38ve!g7ou6zw7163zu0+4&e6$rbv1(26bdc=&q3
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ['wahome.pythonanywhere.com', '127.0.0.1', 'linnetsblog.tech', '.onrender.com']
 
-
-
+# To run locally use these settings and the 2nd DATABASES settings
+# DEBUG = True
+# ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -84,10 +85,13 @@ DATABASES = {
         default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
         conn_max_age=600
     )
+
+    # Use this setting for databases when running locally
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -138,8 +142,10 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-
-
+else:
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
 
 
 # Default primary key field type
