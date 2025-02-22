@@ -1,11 +1,29 @@
 {
-  "builds": [{
-    "src": "expenditure_tracker/wsgi.py",
-    "use": "@vercel/python",
-    "config": { "maxLamdaSize": "15mb", "runtime": "python3.10" }
-  }],
-  "routes": [{
+  "build": {
+    "env": {
+      "DJANGO_SETTINGS_MODULE": "expenditure_tracker.settings",
+      "PYTHON_VERSION": "3.10"
+    }
+  },
+  "builds": [
+    {
+      "src": "expenditure_tracker/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.10",
+        "includeFiles": ["**/*.html", "staticfiles/**"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "static/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "expenditure_tracker/wsgi.py"
-    }]
+    }
+  ]
 }
