@@ -25,10 +25,11 @@ SECRET_KEY = 'django-insecure-m$_o&$t%=xx38ve!g7ou6zw7163zu0+4&e6$rbv1(26bdc=&q3
 
 # Security settings - Update these:
 DEBUG = False  # Keep this False for production
-ALLOWED_HOSTS = ['cwa.pythonanywhere.com', '127.0.0.1', '.vercel.app', 'CWA.onrender.com', '.onrender.com']  # Replace with your PythonAnywhere domain
+ALLOWED_HOSTS = ['cwa.pythonanywhere.com', '127.0.0.1', '.vercel.app', 'cwa-n78q.onrender.com', '.onrender.com']  # Replace with your PythonAnywhere domain
 
 # Security headers
-CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app']
+# CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['https://cwa-n78q.onrender.com']
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
