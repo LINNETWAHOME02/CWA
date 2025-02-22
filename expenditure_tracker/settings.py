@@ -23,13 +23,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-m$_o&$t%=xx38ve!g7ou6zw7163zu0+4&e6$rbv1(26bdc=&q3'
 
-# # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-# ALLOWED_HOSTS = ['wahome.pythonanywhere.com', '127.0.0.1', 'linnetsblog.tech', '.onrender.com']
+# Security settings - Update these:
+DEBUG = False  # Keep this False for production
+ALLOWED_HOSTS = ['cwa.pythonanywhere.com', '127.0.0.1']  # Replace with your PythonAnywhere domain
 
-# To run locally use these settings and the 2nd DATABASES settings
-DEBUG = False
-ALLOWED_HOSTS = ['*']
+# Add these under the DEBUG=False block:
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# # To run locally use these settings and the 2nd DATABASES settings
+# DEBUG = True
+# ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -127,11 +133,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-# Static files configuration for Netlify deployment
+# Static files configuration - Update to:
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collectstatic
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # PythonAnywhere looks for this by default
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]  # Your source static files
 
 
 # Simplified WhiteNoise configuration for Render
