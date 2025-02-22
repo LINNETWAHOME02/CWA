@@ -27,11 +27,11 @@ SECRET_KEY = 'django-insecure-m$_o&$t%=xx38ve!g7ou6zw7163zu0+4&e6$rbv1(26bdc=&q3
 DEBUG = False  # Keep this False for production
 ALLOWED_HOSTS = ['cwa.pythonanywhere.com', '127.0.0.1', '.vercel.app']  # Replace with your PythonAnywhere domain
 
-# Add these under the DEBUG=False block:
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# # Add these under the DEBUG=False block:
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 # # To run locally use these settings and the 2nd DATABASES settings
 # DEBUG = True
