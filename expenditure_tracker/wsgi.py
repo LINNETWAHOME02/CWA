@@ -15,6 +15,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'expenditure_tracker.settings')
 
 application = get_wsgi_application()
 
+app = application
+
 # When using pythonanywhere
 # import os
 # import sys
