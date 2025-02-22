@@ -139,9 +139,9 @@ USE_TZ = True
 
 # Static files configuration - Update to:
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # PythonAnywhere looks for this by default
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # PythonAnywhere looks for this by default
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Use 'static' instead of 'staticfiles'
+    os.path.join(BASE_DIR, 'staticfiles'),  # Use 'static' instead of 'staticfiles'
 ]
 
 
