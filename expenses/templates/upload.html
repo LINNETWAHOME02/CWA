@@ -5,13 +5,43 @@
 <div class="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto text-center">
     <h1 class="text-2xl font-bold mb-4">Upload Excel File</h1>
 
-    <!-- Excel Upload Form -->
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="mb-4">
-            <label class="block text-gray-700 mb-2">Select Excel File:</label>
-            <input type="file" name="excel_file" class="border p-2 w-full" accept=".xlsx, .xls">
-        </div>
+
+        {% if sheet_names|length > 1 %}
+            <div class="mb-4">
+                <p class="text-gray-600">Selected file: {{ excel_file_name }}</p>
+                <p class="text-gray-600">Year: {{ year }}</p>
+                <input type="hidden" name="year" value="{{ year }}">
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Select Sheet:</label>
+                    <select name="sheet_name" class="border p-2 w-full" required>
+                        {% for sheet in sheet_names %}
+                            <option value="{{ sheet }}">{{ sheet }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        {% else %}
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Select Excel File:</label>
+                <input type="file" name="excel_file" class="border p-2 w-full" accept=".xlsx, .xls" required>
+
+                <label class="block text-gray-700 mb-2">Select Year:</label>
+                <select name="year" class="border p-2 w-full" required>
+                    {% for year in years %}
+                        <option value="{{ year }}" {% if year == current_year %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {{ error }}
+            </div>
+        {% endif %}
 
         <div class="flex gap-2 justify-around">
             <button type="submit" class="bg-blue-500 text-white px-10 py-2 rounded hover:bg-blue-600">

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-m$_o&$t%=xx38ve!g7ou6zw7163zu0+4&e6$rbv1(26bdc=&q3'
 
 # Security settings - Update these:
-DEBUG = False  # Keep this False for production
+DEBUG=False  # Keep this False for production
 ALLOWED_HOSTS = ['cwa.pythonanywhere.com', '127.0.0.1', '.vercel.app', 'cwa-n78q.onrender.com', '.onrender.com']  # Replace with your PythonAnywhere domain
 
 # Security headers for Render
@@ -34,7 +34,8 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = [
     'https://cwa-n78q.onrender.com',
-    'https://*.onrender.com'  # Wildcard for all Render subdomains
+    'https://*.onrender.com',  # Wildcard for all Render subdomains
+    'https://*.pythonanywhere.com', # Wildcard for all pythonanywhere subdomains
 ]
 
 # # To run locally use these settings and the 2nd DATABASES settings

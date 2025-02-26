@@ -13,6 +13,7 @@ class Member(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     account_number = models.CharField(max_length=50)
+    year = models.PositiveIntegerField()  # New field
     monthly_contributions = models.JSONField(default=dict)  # Stores {month: amount}
     # Add default annual_target if missing
     annual_target = models.DecimalField(
@@ -21,6 +22,9 @@ class Member(models.Model):
         default=6000.00
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('account_number', 'year')  # Prevent duplicate entries
 
     @property
     def total_contributed(self):

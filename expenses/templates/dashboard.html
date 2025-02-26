@@ -5,11 +5,40 @@
 <div class="bg-white rounded-lg shadow-md p-6">
 
     <div class="flex gap-2 justify-between">
-        <a href="/upload" class="bg-green-500 text-white px-8 py-2 rounded">Upload Excel</a>
-        <form action="{% url 'delete_all' %}" method="post" onsubmit="return confirm('This will delete ALL members including in the database. Continue?')">
-            {% csrf_token %}
-            <button type="submit" class="bg-red-500 text-white px-8 py-2 rounded">Delete All Members</button>
+        <!--    Year Selection    -->
+        <form>
+            <select name="year" onchange="this.form.submit()" class="border p-2 rounded">
+                {% for year in years %}
+                    <option value="{{ year }}"
+                            {% if year == selected_year %}selected{% endif %}>
+                        {{ year }}
+                    </option>
+                {% endfor %}
+            </select>
+            <!-- Preserve existing parameters -->
+            {% for key, value in request.GET.items %}
+                {% if key != "year" %}
+                    <input type="hidden" name="{{ key }}" value="{{ value }}">
+                {% endif %}
+            {% endfor %}
         </form>
+
+        <a href="/upload" class="bg-green-500 text-white px-16 py-3 rounded">Upload Excel</a>
+
+        <form action="{% url 'delete_all' %}" method="post"
+              onsubmit="return confirm('This will delete ALL members for {{ selected_year }} including in the database. Continue?')">
+            {% csrf_token %}
+            <input type="hidden" name="year" value="{{ selected_year }}">
+            <button type="submit" class="bg-red-500 text-white px-8 py-2 rounded">
+                Delete {{ selected_year }} Members
+            </button>
+        </form>
+    </div>
+
+    <div class="mb-4">
+      <p class="text-sm text-gray-600">
+        Showing {{ members|length }} records for {{ selected_year }}
+      </p>
     </div>
 
     <table class="min-w-full divide-y divide-gray-200">
@@ -36,10 +65,11 @@
                     {% endif %}
                 </td>
                 <td class="px-8 py-5 flex justify-between">
-                    <a href="{% url 'generate_report' member.id %}" class="bg-blue-500 text-white px-8 py-2 rounded">Generate Report</a>
-                    <a href="{% url 'edit_contributions' member.id %}" class="bg-gray-500 text-white px-8 py-2 rounded mx-2">Edit</a>
+                    <a href="{% url 'generate_report' member.id %}" class="bg-blue-500 text-white px-8 py-3 rounded">Generate Report</a>
+                    <a href="{% url 'edit_contributions' member.id %}" class="bg-gray-500 text-white px-8 py-3 rounded mx-2">Edit</a>
 
-                    <form action="{% url 'delete_member' member.id %}" method="post" onsubmit="return confirm('Delete {{ member.name }}?')">
+                    <form action="{% url 'delete_member' member.id %}?year={{ selected_year }}" method="post"
+                          onsubmit="return confirm('Delete {{ member.name }}?')">
                         {% csrf_token %}
                         <button type="submit" class="bg-red-500 text-white px-8 py-2 rounded">Delete</button>
                     </form>
